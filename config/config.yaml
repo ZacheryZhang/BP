@@ -1,0 +1,44 @@
+# PPG Blood Pressure Prediction Configuration
+
+data:
+  sampling_rate: 125  # Hz
+  signal_length: 1000  # samples
+  preprocessing:
+    filter_low: 0.5
+    filter_high: 8.0
+    normalize: true
+
+features:
+  paa_size: 50
+  statistical_features: true
+  frequency_features: true
+  nonlinear_features: true
+
+models:
+  attention:
+    input_dim: 1000
+    hidden_dim: 128
+    num_heads: 8
+    dropout: 0.1
+  
+  contrastive:
+    embedding_dim: 32
+    temperature: 0.1
+    batch_size: 64
+    
+  moe:
+    num_experts: 4
+    hidden_dim: 64
+    expert_dim: 32
+
+training:
+  epochs: 100
+  learning_rate: 0.001
+  batch_size: 32
+  validation_split: 0.2
+  early_stopping_patience: 10
+  
+paths:
+  data_dir: "data/"
+  model_dir: "data/models/"
+  log_dir: "logs/"
